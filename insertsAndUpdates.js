@@ -66,6 +66,36 @@ async function updateUserLastNameForId(idUser, userLastName)
   });
 }
 
+async function updateUserNameForId(idUser, userName)
+{
+  const Model = Sequelize.Model;
+  class User extends Model {}
+  User.init(
+  {
+    firstName: 
+    {
+      type: Sequelize.STRING,
+      allowNull: false
+    },
+    lastName: 
+    {
+      type: Sequelize.STRING
+    }
+  }, 
+  {
+    sequelize,
+    modelName: 'user'
+  });
+  //actualiza registro
+  User.update({ firstName: userName }, {
+    where: {
+      id: idUser
+    }
+  }).then(() => {
+    console.log("Done");
+  });
+}
+
 async function createUser(userName, userLastName)
 { 
   /* Create a user */
@@ -100,5 +130,41 @@ async function createUser(userName, userLastName)
     });
 }
 
+async function getUsers()
+{  
+  const Model = Sequelize.Model;
+  class User extends Model {}
+  User.init(
+  {
+    firstName: 
+    {
+      type: Sequelize.STRING,
+      allowNull: false
+    },
+    lastName: 
+    {
+      type: Sequelize.STRING
+    }
+  }, 
+  {
+    sequelize,
+    modelName: 'user'
+  });
 
-createUser("")
+
+  // obtiene registros
+  User.findAll().then(users => 
+  {
+    console.log("All users:", JSON.stringify(users, null, 4));
+  });
+}
+
+
+createUser("Maria", "Adreas") ;
+createUser("Lionel", "Lorenzo") ;
+createUser("Martin","Lorenzo") ;
+createUser("lucia", "Mazzerlli")
+
+updateUserLastNameForId(3, "Peronne") ;
+updateUserNameForId(1, "Lio") ;
+updateUserNameForLastName("Mazzerlli", "Luciana" ) ;

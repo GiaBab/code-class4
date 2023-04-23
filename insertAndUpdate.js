@@ -6,36 +6,6 @@ const sequelize = new Sequelize('prueba', 'root', '', {
   dialect: 'mariadb' /* one of 'mysql' | 'mariadb' | 'postgres' | 'mssql' */
 });
 
-async function updateUser(userLastName, userName)
-{
-  const Model = Sequelize.Model;
-  class User extends Model {}
-  User.init(
-  {
-    firstName: 
-    {
-      type: Sequelize.STRING,
-      allowNull: false
-    },
-    lastName: 
-    {
-      type: Sequelize.STRING
-    }
-  }, 
-  {
-    sequelize,
-    modelName: 'user'
-  });
-  //actualiza registro
-  User.update({ firstName: userName }, {
-    where: {
-      lastName: userLastName
-    }
-  }).then(() => {
-    console.log("Done");
-  });
-}
-
 async function createUser(userName, userLastName)
 { 
   /* Create a user */
@@ -70,5 +40,64 @@ async function createUser(userName, userLastName)
     });
 }
 
+async function updateUser(userLastName, userName)
+{
+  const Model = Sequelize.Model;
+  class User extends Model {}
+  User.init(
+  {
+    firstName: 
+    {
+      type: Sequelize.STRING,
+      allowNull: false
+    },
+    lastName: 
+    {
+      type: Sequelize.STRING
+    }
+  }, 
+  {
+    sequelize,
+    modelName: 'user'
+  });
+  //actualiza registro
+  User.update({ firstName: userName }, {
+    where: {
+      lastName: userLastName
+    }
+  }).then(() => {
+    console.log("Done");
+  });
+}
+
+async function getUsers()
+{  
+  const Model = Sequelize.Model;
+  class User extends Model {}
+  User.init(
+  {
+    firstName: 
+    {
+      type: Sequelize.STRING,
+      allowNull: false
+    },
+    lastName: 
+    {
+      type: Sequelize.STRING
+    }
+  }, 
+  {
+    sequelize,
+    modelName: 'user'
+  });
+
+  // obtiene registros
+  User.findAll().then(users => 
+  {
+    console.log("All users:", JSON.stringify(users, null, 4));
+  });
+}
+
 createUser("Diego", "Mahio") ;
+createUser("Diego", "Amartiri") ;
 updateUser("Mahio", "Jose") ;

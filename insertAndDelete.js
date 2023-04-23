@@ -73,5 +73,35 @@ async function createUser(userName, userLastName)
     });
 }
 
+async function getUsers()
+{  
+  const Model = Sequelize.Model;
+  class User extends Model {}
+  User.init(
+  {
+    firstName: 
+    {
+      type: Sequelize.STRING,
+      allowNull: false
+    },
+    lastName: 
+    {
+      type: Sequelize.STRING
+    }
+  }, 
+  {
+    sequelize,
+    modelName: 'user'
+  });
+
+
+  // obtiene registros
+  User.findAll().then(users => 
+  {
+    console.log("All users:", JSON.stringify(users, null, 4));
+  });
+}
+
+
 createUser("Sandra", "Monia") ;
 deleteUserForId(2) ;
